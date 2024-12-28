@@ -23,7 +23,7 @@ function RootComponent() {
 }
 
 const TanStackRouterDevTools =
-  process.env.NODE_ENV === "production"
+  import.meta.env.NODE_ENV === "production"
     ? () => null
     : React.lazy(() =>
         import("@tanstack/router-devtools").then((res) => ({
