@@ -8,10 +8,14 @@ export const TaskSchema = z.object({
   priority: z.number().int().nullable().optional(),
   dueDate: z
     .string()
-    .transform((str) => (str ? new Date(str) : null))
-    .optional(),
-  createdAt: z.date(),
-  updatedAt: z.date().optional(),
+    .optional()
+    .nullable()
+    .transform((str) => (str ? new Date(str) : null)),
+  createdAt: z.string().transform((str) => new Date(str)),
+  updatedAt: z
+    .string()
+    .optional()
+    .transform((str) => (str ? new Date(str) : null)),
 });
 
 export const CreateTaskSchema = TaskSchema.omit({
@@ -22,6 +26,6 @@ export const CreateTaskSchema = TaskSchema.omit({
 
 export const UpdateTaskSchema = CreateTaskSchema.partial();
 
-export const ResponseTaskSchema = TaskSchema.omit({
-  dueDate: true,
-}).extend({ dueDate: z.date().nullable().optional() });
+export const ResponseTaskSchema = TaskSchema;
+
+export const ResponseTasksSchema = ResponseTaskSchema.array();
