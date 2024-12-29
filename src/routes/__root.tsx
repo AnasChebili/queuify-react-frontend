@@ -13,7 +13,6 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <React.Fragment>
-        <div>Hello "__root"!</div>
         <Outlet />
         <TanStackRouterDevTools />
         <ReactQueryDevtools initialIsOpen={false} />
