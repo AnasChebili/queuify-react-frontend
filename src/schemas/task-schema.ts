@@ -29,3 +29,16 @@ export const UpdateTaskSchema = CreateTaskSchema.partial();
 export const ResponseTaskSchema = TaskSchema;
 
 export const ResponseTasksSchema = ResponseTaskSchema.array();
+
+export const ReturnTasksSchema = z.object({
+  status: z.literal("success"),
+  data: ResponseTasksSchema,
+  metadata: z.object({
+    total: z.number(),
+    page: z.number(),
+    limit: z.number(),
+    totalPages: z.number(),
+  }),
+});
+
+export const TasksPagesSchema = ResponseTasksSchema.array();

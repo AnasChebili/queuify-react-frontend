@@ -1,13 +1,18 @@
-import { ResponseTasksSchema } from "../schemas/task-schema";
+import { Fragment } from "react/jsx-runtime";
+import { TasksPagesSchema } from "../schemas/task-schema";
 import { TaskBox } from "./task-box";
 
-type Tasks = Zod.infer<typeof ResponseTasksSchema>;
+type TasksPages = Zod.infer<typeof TasksPagesSchema>;
 
-export function TasksLayout({ tasks }: { tasks: Tasks }) {
+export function TasksLayout({ tasksPages }: { tasksPages: TasksPages }) {
   return (
     <section className="flex flex-col gap-4">
-      {tasks.map((task) => (
-        <TaskBox key={task.id} task={task} />
+      {tasksPages.map((tasks, i) => (
+        <Fragment key={i}>
+          {tasks.map((task) => (
+            <TaskBox key={task.id} task={task} />
+          ))}
+        </Fragment>
       ))}
     </section>
   );
