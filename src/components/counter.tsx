@@ -1,0 +1,34 @@
+import { useCallback, useContext, useState } from "react";
+import { CountContext } from "../lib/count-context";
+
+export function Counter() {
+  const [count, setCount] = useState(0);
+  const incerement = useCallback(() => {
+    setCount((prevCount) => prevCount + 1);
+  }, []);
+  const decrement = useCallback(
+    () => setCount((prevCount) => prevCount - 1),
+    []
+  );
+  return (
+    <>
+      <header>Counter</header>
+      <form onSubmit={(e) => e.preventDefault()}>
+        <button onClick={incerement}>+</button>
+        <button onClick={decrement}>-</button>
+      </form>
+      <CountContext.Provider value={count}>
+        <CountDisplay />
+      </CountContext.Provider>
+    </>
+  );
+}
+
+const CountDisplay = () => {
+  const count = useContext(CountContext);
+  return (
+    <>
+      <p>{count}</p>
+    </>
+  );
+};
