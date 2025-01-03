@@ -4,6 +4,7 @@ import { TasksLayout } from "../components/tasks-layout";
 import { useState } from "react";
 import { calculateInitialLimit } from "../utils/infinite-scroll";
 import { useIntersectionObserver } from "../hooks/infinite-scroll";
+import { Counter } from "../components/counter";
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
@@ -31,9 +32,14 @@ function RouteComponent() {
   if (error) return <div>{error?.message}</div>;
 
   return (
-    <div className="m-4">
-      <TasksLayout tasksPages={tasksPages} />
-      <div ref={loadMoreRef}>{hasNextPage && <LoadingIndicator />}</div>
+    <div className="m-4 flex justify-between">
+      <section>
+        <TasksLayout tasksPages={tasksPages} />
+        <div ref={loadMoreRef}>{hasNextPage && <LoadingIndicator />}</div>
+      </section>
+      <section>
+        <Counter />
+      </section>
     </div>
   );
 }

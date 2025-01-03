@@ -1,8 +1,10 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { TasksApiService } from "../api/api-service/tasks/tasks-api-service";
 import { TasksPagesSchema } from "../schemas/task-schema";
+import { useDebugValue } from "react";
 
 export const useGetTasks = ({ limit }: { limit: number }) => {
+  useDebugValue(limit);
   return useInfiniteQuery({
     queryKey: ["tasks", limit],
     queryFn: ({ pageParam }) => TasksApiService.getTasks({ pageParam, limit }),
