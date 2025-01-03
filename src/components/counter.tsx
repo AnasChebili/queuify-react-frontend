@@ -24,7 +24,6 @@ export function Counter() {
       <CountContext.Provider value={count}>
         <CountDisplay />
       </CountContext.Provider>
-      <p>{deferredCount}</p>
     </>
   );
 }
