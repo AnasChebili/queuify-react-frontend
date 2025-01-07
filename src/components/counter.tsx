@@ -8,7 +8,7 @@ import {
 import { CountContext } from "../lib/count-context";
 import { counterReducer } from "../reducers/counter";
 
-export function Counter() {
+export default function Counter() {
   const [count, setCount] = useState(0);
   const deferredCount = useDeferredValue(count);
   console.log(count);

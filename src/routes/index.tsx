@@ -1,14 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useGetTasks } from "../hooks/use-tasks";
 import { TasksLayout } from "../components/tasks-layout";
-import { useState } from "react";
+import { lazy, useState } from "react";
 import { calculateInitialLimit } from "../utils/infinite-scroll";
 import { useIntersectionObserver } from "../hooks/infinite-scroll";
-import { Counter } from "../components/counter";
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
 });
+
+const Counter = lazy(() => import("../components/counter"));
 
 function RouteComponent() {
   const [limit] = useState(() => calculateInitialLimit());
@@ -32,7 +33,7 @@ function RouteComponent() {
   if (error) return <div>{error?.message}</div>;
 
   return (
-    <div className="m-4 flex justify-between">
+    <div className="flex justify-between m-4">
       <section>
         <TasksLayout tasksPages={tasksPages} />
         <div ref={loadMoreRef}>{hasNextPage && <LoadingIndicator />}</div>
@@ -46,8 +47,8 @@ function RouteComponent() {
 
 function LoadingIndicator() {
   return (
-    <div className="w-full flex justify-center p-4">
-      <div className="animate-spin h-8 w-8 border-4 border-blue-500 rounded-full border-t-transparent" />
+    <div className="flex justify-center w-full p-4">
+      <div className="w-8 h-8 border-4 border-blue-500 rounded-full animate-spin border-t-transparent" />
     </div>
   );
 }
