@@ -1,4 +1,5 @@
 import {
+  memo,
   useCallback,
   useContext,
   useDeferredValue,
@@ -8,7 +9,7 @@ import {
 import { CountContext } from "../lib/count-context";
 import { counterReducer } from "../reducers/counter";
 
-export function Counter() {
+const Counter = memo(() => {
   const [count, setCount] = useState(0);
   const deferredCount = useDeferredValue(count);
   console.log(count);
@@ -40,7 +41,7 @@ export function Counter() {
       </CountContext.Provider>
     </>
   );
-}
+});
 
 const CountDisplay = () => {
   const count = useContext(CountContext);
@@ -50,3 +51,5 @@ const CountDisplay = () => {
     </>
   );
 };
+
+export default Counter;
