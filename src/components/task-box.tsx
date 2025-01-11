@@ -2,7 +2,7 @@ import { Pencil } from "lucide-react";
 import { ResponseTaskSchema } from "../schemas/task-schema";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
-import { TaskForm } from "./task-form";
+import { TaskDialog } from "./task-dialog";
 
 type Task = Zod.infer<typeof ResponseTaskSchema>;
 
@@ -52,7 +52,7 @@ export function TaskBox({ task }: { task: Task }) {
           <Pencil className="h-4 text-gray-200" />
         </div>
       </section>
-      <TaskForm open={open} setOpen={setOpen} />
+      <TaskDialog open={open} setOpen={setOpen} />
     </div>
   );
 }
