@@ -29,6 +29,24 @@ export const TaskForm = ({ task }: { task?: Task }) => {
         {...register("title")}
         className="bg-transparent"
       />
+      <label htmlFor="description">Description</label>
+      <textarea
+        {...register("description")}
+        id="description"
+        className="bg-transparent"
+      ></textarea>
+      <label htmlFor="status"></label>
+      <select {...register("status")} id="status" className="bg-transparent">
+        <option value="PENDING">Pending</option>
+        <option value="IN_PROGRESS">In progress</option>
+        <option value="COMPLETED">Completed</option>
+      </select>
+      <label htmlFor="priority">Priority</label>
+      <input
+        type="number"
+        {...register("priority")}
+        className="bg-transparent"
+      />
     </form>
   );
 };
