@@ -2,6 +2,7 @@ import { CreateTaskSchema, ResponseTaskSchema } from "@/schemas/task-schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DatePickerDemo } from "./date-picker";
+import { cn } from "@/lib/utils";
 
 type Task = Zod.infer<typeof ResponseTaskSchema>;
 
@@ -11,7 +12,7 @@ export const TaskForm = ({ task }: { task?: Task }) => {
     handleSubmit,
     register,
     setValue,
-    getValues,
+    watch,
   } = useForm({
     defaultValues: {
       title: task?.title,
@@ -45,19 +46,36 @@ export const TaskForm = ({ task }: { task?: Task }) => {
           type="text"
           id="title"
           {...register("title")}
-          className="bg-transparent border-[1px] border-gray-500 rounded-lg outline-none px-2 py-1 "
+          className={cn(
+            "bg-transparent border-[1px] border-gray-500 rounded-lg outline-none px-2 py-1 ",
+            { "border-red-500": errors.title }
+          )}
         />
+        {errors.title && (
+          <p className="-mt-2 text-xs text-red-500">{errors.title.message}</p>
+        )}
         <label htmlFor="description">Description</label>
         <textarea
           {...register("description")}
           id="description"
-          className="bg-transparent border-[1px] border-gray-500 rounded-lg outline-none px-2 py-1"
+          className={cn(
+            "bg-transparent border-[1px] border-gray-500 rounded-lg outline-none px-2 py-1",
+            { "border-red-500": errors.description }
+          )}
         ></textarea>
+        {errors.description && (
+          <p className="-mt-2 text-xs text-red-500">
+            {errors.description.message}
+          </p>
+        )}
         <label htmlFor="status">Status</label>
         <select
           {...register("status")}
           id="status"
-          className="bg-transparent border-[1px] border-gray-500 rounded-lg outline-none px-2 py-1"
+          className={cn(
+            "bg-transparent border-[1px] border-gray-500 rounded-lg outline-none px-2 py-1",
+            { "border-red-500": errors.status }
+          )}
         >
           <option
             value="PENDING"
@@ -72,17 +90,31 @@ export const TaskForm = ({ task }: { task?: Task }) => {
             Completed
           </option>
         </select>
+        {errors.status && (
+          <p className="-mt-2 text-xs text-red-500">{errors.status.message}</p>
+        )}
         <label htmlFor="priority">Priority</label>
         <input
           type="number"
           {...register("priority")}
-          className="bg-transparent border-[1px] border-gray-500 rounded-lg outline-none px-2 py-1"
+          className={cn(
+            "bg-transparent border-[1px] border-gray-500 rounded-lg outline-none px-2 py-1",
+            { "border-red-500": errors.priority }
+          )}
         />
+        {errors.priority && (
+          <p className="-mt-2 text-xs text-red-500">
+            {errors.priority.message}
+          </p>
+        )}
         <label htmlFor="">Due date</label>
         <DatePickerDemo
-          date={getValues().dueDate}
+          date={watch("dueDate")}
           setDate={(date: Date | undefined) => setValue("dueDate", date)}
         />
+        {errors.dueDate && (
+          <p className="-mt-2 text-xs text-red-500">{errors.dueDate.message}</p>
+        )}
         <div className="my-3 w-full h-[1px] bg-gray-900 opacity-40"></div>
         <section className="flex justify-end gap-3">
           <button className="border-[1px] hover:-translate-y-1 transition border-gray-500 rounded-md h-8 px-3  ">
