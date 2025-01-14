@@ -123,7 +123,10 @@ export const TaskForm = ({ task }: { task?: Task }) => {
         )}
         <div className="my-3 w-full h-[1px] bg-gray-900 opacity-40"></div>
         <section className="flex justify-end gap-3">
-          <button className="border-[1px] hover:-translate-y-1 transition border-gray-500 rounded-md h-8 px-3  ">
+          <button
+            type="button"
+            className="border-[1px] hover:-translate-y-1 transition border-gray-500 rounded-md h-8 px-3  "
+          >
             Cancel
           </button>
           <button
