@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DatePickerDemo } from "./date-picker";
 import { cn } from "@/lib/utils";
+import { Spinner } from "./spinner";
 
 type Task = Zod.infer<typeof ResponseTaskSchema>;
 
@@ -134,9 +135,10 @@ export const TaskForm = ({ task }: { task?: Task }) => {
             type="submit"
             className={cn(
               { "hover:-translate-y-1": !isSubmitting },
-              "h-8 px-3 text-white transition bg-purple-700 rounded-md disabled:opacity-50 "
+              "h-8 px-3 text-white transition bg-purple-700 rounded-md disabled:opacity-50 flex justify-center items-center gap-2 "
             )}
           >
+            {isSubmitting && <Spinner className="w-4 h-4 text-white" />}
             Save
           </button>
         </section>
