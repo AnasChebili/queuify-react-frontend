@@ -22,7 +22,8 @@ export const CreateTaskSchema = TaskSchema.omit({
   id: true,
   createdAt: true,
   updatedAt: true,
-});
+  dueDate: true,
+}).extend({ dueDate: z.date().nullable().optional() });
 
 export const UpdateTaskSchema = CreateTaskSchema.partial();
 

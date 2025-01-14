@@ -52,7 +52,7 @@ export function TaskBox({ task }: { task: Task }) {
           <Pencil className="h-4 text-gray-200" />
         </div>
       </section>
-      <TaskDialog open={open} setOpen={setOpen} />
+      <TaskDialog open={open} setOpen={setOpen} task={task} />
     </div>
   );
 }
