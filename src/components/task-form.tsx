@@ -36,7 +36,13 @@ export const TaskForm = ({ task }: { task?: Task }) => {
       <div className="my-3 w-full h-[1px] bg-gray-900 opacity-40"></div>
       <form
         onSubmit={handleSubmit(
-          (data) => console.log(data),
+          async (data) =>
+            await new Promise<void>((resolve) =>
+              setTimeout(() => {
+                console.log(data);
+                resolve();
+              }, 1000)
+            ),
           (data) => console.log(data)
         )}
         className="flex flex-col gap-3 text-sm text-black"
@@ -121,8 +127,12 @@ export const TaskForm = ({ task }: { task?: Task }) => {
             Cancel
           </button>
           <button
+            disabled={isSubmitting}
             type="submit"
-            className="h-8 px-3 text-white transition bg-purple-700 rounded-md hover:-translate-y-1"
+            className={cn(
+              { "hover:-translate-y-1": !isSubmitting },
+              "h-8 px-3 text-white transition bg-purple-700 rounded-md disabled:opacity-50 "
+            )}
           >
             Save
           </button>
