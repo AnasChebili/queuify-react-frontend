@@ -1,4 +1,4 @@
-import { Pencil } from "lucide-react";
+import { Pencil, Trash2 } from "lucide-react";
 import { ResponseTaskSchema } from "../schemas/task-schema";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
@@ -62,13 +62,21 @@ export function TaskBox({ task }: { task: Task }) {
           </p>
         </section>
       </section>
-      <section className={cn({ hidden: hidden }, "pl-2")}>
-        <div
-          className="px-2 py-3 rounded-full hover:bg-gray-500"
-          onClick={() => setOpen(true)}
-        >
-          <Pencil className="h-4 text-gray-200" />
-        </div>
+      <section className="flex flex-col">
+        <section className={cn({ hidden: hidden }, "pl-2")}>
+          <div
+            className="px-2 py-3 rounded-full hover:bg-gray-500"
+            onClick={() => setOpen(true)}
+          >
+            <Pencil className="h-4 text-gray-200" />
+          </div>
+        </section>
+
+        <section className={cn({ hidden: hidden }, "pl-2")}>
+          <div className="px-2 py-3 text-red-600 rounded-full hover:bg-gray-500 hover:text-red-400">
+            <Trash2 className="h-4 " />
+          </div>
+        </section>
       </section>
       <TaskDialog open={open} setOpen={setOpen} task={task} />
     </div>
