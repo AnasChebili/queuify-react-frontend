@@ -24,7 +24,12 @@ export function TaskBox({ task }: { task: Task }) {
       <section className="flex w-[700px] text-black">
         <section className="basis-1/3  bg-[#BCCCDC] p-5 rounded-s-lg">
           <header className="text-sm text-gray-500 ">Task</header>
-          <h1 className="mt-1 text-xl text-ellipsis line-clamp-2">
+          <h1
+            style={{
+              wordBreak: "break-word", // Ensures long words break onto the next line
+            }}
+            className="mt-1 text-xl h-14 line-clamp-2 text-ellipsis "
+          >
             {task.title}
           </h1>
           <p className="mt-6 text-sm text-gray-500 ">
@@ -47,7 +52,12 @@ export function TaskBox({ task }: { task: Task }) {
             )}
           </header>
 
-          <p className="mt-2 text-md elipsis line-clamp-3">
+          <p
+            style={{
+              wordBreak: "break-word", // Ensures long words break onto the next line
+            }}
+            className="mt-2 text-md elipsis line-clamp-3"
+          >
             {task.description}
           </p>
         </section>

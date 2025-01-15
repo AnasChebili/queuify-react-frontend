@@ -5,7 +5,7 @@ import { DatePickerDemo } from "./date-picker";
 import { cn } from "@/lib/utils";
 import { Spinner } from "./spinner";
 import { Dispatch, SetStateAction } from "react";
-import { useUpdateTask } from "@/hooks/use-tasks";
+import { useCreateTask, useUpdateTask } from "@/hooks/use-tasks";
 import { useQueryClient } from "@tanstack/react-query";
 
 type Task = Zod.infer<typeof ResponseTaskSchema>;
@@ -37,16 +37,20 @@ export const TaskForm = ({
 
   const queryClient = useQueryClient();
 
-  const updateTaskMutation = useUpdateTask({
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tasks"] });
-      setOpen(false);
-    },
-  });
+  const onMutationSucces = () => {
+    queryClient.invalidateQueries({ queryKey: ["tasks"] });
+    setOpen(false);
+  };
+
+  const updateTaskMutation = useUpdateTask({ onSuccess: onMutationSucces });
+
+  const createTaskMutation = useCreateTask({ onSuccess: onMutationSucces });
 
   const onSubmit = handleSubmit(async (data) => {
     if (task) {
       updateTaskMutation.mutate({ id: task?.id, task: data });
+    } else {
+      createTaskMutation.mutate({ task: data });
     }
   });
 
