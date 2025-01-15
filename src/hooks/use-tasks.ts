@@ -42,3 +42,10 @@ export const useCreateTask = ({ onSuccess }: { onSuccess: () => void }) => {
     onSuccess: onSuccess,
   });
 };
+
+export const useDeleteTask = ({ onSuccess }: { onSuccess: () => void }) => {
+  return useMutation({
+    mutationFn: TasksApiService.deleteTask,
+    onSuccess: onSuccess,
+  });
+};
