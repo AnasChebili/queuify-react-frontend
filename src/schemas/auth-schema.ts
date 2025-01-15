@@ -13,3 +13,8 @@ export const UserResponseSchema = z.object({
   sub: z.string().nullable(),
   provider: z.string().nullable(),
 });
+
+export const ReturnTokenSchema = z.object({
+  status: z.literal("success"),
+  data: z.string(),
+});
