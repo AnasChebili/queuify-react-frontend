@@ -1,15 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useGetTasks } from "../hooks/use-tasks";
 import { TasksLayout } from "../components/tasks-layout";
-import { lazy, useState } from "react";
+import { useState } from "react";
 import { calculateInitialLimit } from "../utils/infinite-scroll";
 import { useIntersectionObserver } from "../hooks/infinite-scroll";
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
 });
-
-const Counter = lazy(() => import("../components/counter"));
 
 function RouteComponent() {
   const [limit] = useState(() => calculateInitialLimit());
@@ -37,9 +35,6 @@ function RouteComponent() {
       <section>
         <TasksLayout tasksPages={tasksPages} />
         <div ref={loadMoreRef}>{hasNextPage && <LoadingIndicator />}</div>
-      </section>
-      <section>
-        <Counter />
       </section>
     </div>
   );
