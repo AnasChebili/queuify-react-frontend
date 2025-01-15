@@ -40,4 +40,13 @@ export class TasksApiService {
     const { data } = await api.put(`${ENDPOINTS.TASKS}/${id}`, task);
     return data.data;
   }
+
+  static async createTask({
+    task,
+  }: {
+    task: Task;
+  }): Promise<Zod.infer<typeof ResponseTaskSchema>> {
+    const { data } = await api.post(ENDPOINTS.TASKS, task);
+    return data.data;
+  }
 }
