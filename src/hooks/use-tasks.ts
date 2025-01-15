@@ -1,12 +1,14 @@
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
 import { TasksApiService } from "../api/api-service/tasks/tasks-api-service";
-import { TasksPagesSchema } from "../schemas/task-schema";
+import { CreateTaskSchema, TasksPagesSchema } from "../schemas/task-schema";
 import { useDebugValue } from "react";
+
+type Task = Zod.infer<typeof CreateTaskSchema>;
 
 export const useGetTasks = ({ limit }: { limit: number }) => {
   useDebugValue(limit);
   return useInfiniteQuery({
-    queryKey: ["tasks", limit],
+    queryKey: ["tasks"],
     queryFn: ({ pageParam }) => TasksApiService.getTasks({ pageParam, limit }),
     initialPageParam: 1,
     getNextPageParam: (lastPage) =>
@@ -22,5 +24,13 @@ export const useGetTask = ({ id }: { id: string }) => {
   return useQuery({
     queryKey: ["task", id],
     queryFn: () => TasksApiService.getTask({ id }),
+  });
+};
+
+export const useUpdateTask = ({ onSuccess }: { onSuccess: () => void }) => {
+  return useMutation({
+    mutationFn: ({ id, task }: { id: string; task: Task }) =>
+      TasksApiService.updateTask({ id, task }),
+    onSuccess: onSuccess,
   });
 };

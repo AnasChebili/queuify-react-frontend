@@ -6,6 +6,12 @@ import { TaskDialog } from "./task-dialog";
 
 type Task = Zod.infer<typeof ResponseTaskSchema>;
 
+const mapStatus = new Map([
+  ["PENDING", "Pending"],
+  ["IN_PROGRESS", "In progress"],
+  ["COMPLETED", "Completed"],
+]);
+
 export function TaskBox({ task }: { task: Task }) {
   const [hidden, setHidden] = useState(true);
   const [open, setOpen] = useState(false);
@@ -21,7 +27,9 @@ export function TaskBox({ task }: { task: Task }) {
           <h1 className="mt-1 text-xl text-ellipsis line-clamp-2">
             {task.title}
           </h1>
-          <p className="mt-6 text-sm text-gray-500 lowercase">{task.status}</p>
+          <p className="mt-6 text-sm text-gray-500 ">
+            {mapStatus.get(task.status)}
+          </p>
         </section>
 
         <section className="basis-2/3 bg p-5 rounded-e-lg bg-[#F8FAFC]">

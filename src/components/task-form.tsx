@@ -4,10 +4,19 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { DatePickerDemo } from "./date-picker";
 import { cn } from "@/lib/utils";
 import { Spinner } from "./spinner";
+import { Dispatch, SetStateAction } from "react";
+import { useUpdateTask } from "@/hooks/use-tasks";
+import { useQueryClient } from "@tanstack/react-query";
 
 type Task = Zod.infer<typeof ResponseTaskSchema>;
 
-export const TaskForm = ({ task }: { task?: Task }) => {
+export const TaskForm = ({
+  task,
+  setOpen,
+}: {
+  task?: Task;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+}) => {
   const {
     formState: { errors, isSubmitting },
     handleSubmit,
@@ -16,9 +25,9 @@ export const TaskForm = ({ task }: { task?: Task }) => {
     watch,
   } = useForm({
     defaultValues: {
-      title: task?.title,
+      title: task?.title ?? "",
       description: task?.description,
-      status: task?.status,
+      status: task?.status ?? "PENDING",
       priority: task?.priority,
       dueDate: task?.dueDate,
     },
@@ -26,31 +35,30 @@ export const TaskForm = ({ task }: { task?: Task }) => {
     resolver: zodResolver(CreateTaskSchema),
   });
 
+  const queryClient = useQueryClient();
+
+  const updateTaskMutation = useUpdateTask({
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tasks"] });
+      setOpen(false);
+    },
+  });
+
+  const onSubmit = handleSubmit(async (data) => {
+    if (task) {
+      updateTaskMutation.mutate({ id: task?.id, task: data });
+    }
+  });
+
   return (
     <>
-      <header className="flex flex-col gap-1 ">
-        <h1 className="text-lg text-black">Edit Task</h1>
-        <p className="text-xs text-gray-600">
-          Modify and edit the task's information
-        </p>
-      </header>
       <div className="my-3 w-full h-[1px] bg-gray-900 opacity-40"></div>
       <form
-        onSubmit={handleSubmit(
-          async (data) =>
-            await new Promise<void>((resolve) =>
-              setTimeout(() => {
-                console.log(data);
-                resolve();
-              }, 1000)
-            ),
-          (data) => console.log(data)
-        )}
+        onSubmit={onSubmit}
         className="flex flex-col gap-3 text-sm text-black"
       >
         <label htmlFor="title">Title</label>
         <input
-          type="text"
           id="title"
           {...register("title")}
           className={cn(
@@ -127,6 +135,7 @@ export const TaskForm = ({ task }: { task?: Task }) => {
           <button
             type="button"
             className="border-[1px] hover:-translate-y-1 transition border-gray-500 rounded-md h-8 px-3  "
+            onClick={() => setOpen(false)}
           >
             Cancel
           </button>

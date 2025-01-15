@@ -1,10 +1,12 @@
 import {
+  CreateTaskSchema,
   ResponseTaskSchema,
   ReturnTasksSchema,
 } from "../../../schemas/task-schema";
 import { api } from "../../axios";
 import { ENDPOINTS } from "../../endpoints";
 
+type Task = Zod.infer<typeof CreateTaskSchema>;
 export class TasksApiService {
   static async getTasks({
     pageParam,
@@ -30,10 +32,12 @@ export class TasksApiService {
 
   static async updateTask({
     id,
+    task,
   }: {
     id: string;
+    task: Task;
   }): Promise<Zod.infer<typeof ResponseTaskSchema>> {
-    const { data } = await api.put(`${ENDPOINTS.TASKS}/${id}`);
+    const { data } = await api.put(`${ENDPOINTS.TASKS}/${id}`, task);
     return data.data;
   }
 }
