@@ -1,10 +1,13 @@
+import { cn } from "@/lib/utils";
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 
 export const Route = createFileRoute("/auth/")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const [isLoginPage, setIsLoginPage] = useState(true);
   return (
     <div className="flex items-center justify-center w-svw h-svh">
       <section className="flex flex-col justify-center items-center gap-12 h-[600px] w-[500px] rounded-2xl text-black bg-white">
@@ -12,8 +15,24 @@ function RouteComponent() {
           <h1 className="text-6xl font-bold">Hi There!</h1>
           <p className="text-sm ">Welcome to Queuify</p>
           <section className="flex text-xs">
-            <button className="p-3 border-b-2 border-blue-500">Log in</button>
-            <button className="p-3 border-b-2">Sign up</button>
+            <button
+              onClick={() => setIsLoginPage(true)}
+              className={cn(
+                { "border-blue-500": isLoginPage },
+                "p-3 border-b-2"
+              )}
+            >
+              Log in
+            </button>
+            <button
+              onClick={() => setIsLoginPage(false)}
+              className={cn(
+                { "border-blue-500": !isLoginPage },
+                "p-3 border-b-2"
+              )}
+            >
+              Sign up
+            </button>
           </section>
         </header>
 
@@ -35,9 +54,16 @@ function RouteComponent() {
               className="border-gray-400 border-2 rounded-lg p-2 h-[40px] w-[300px]"
               placeholder="password"
             />
+            {!isLoginPage && (
+              <input
+                type="password"
+                className="border-gray-400 border-2 rounded-lg p-2 h-[40px] w-[300px]"
+                placeholder="Confirm password"
+              />
+            )}
 
             <button className=" mt-8 flex items-center justify-center w-[300px] h-[45px] rounded-full bg-black text-white">
-              Log In
+              {isLoginPage ? "Log In" : "Sign Up"}
             </button>
           </form>
         </section>
