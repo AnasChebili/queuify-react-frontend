@@ -37,14 +37,14 @@ export const TaskForm = ({
 
   const queryClient = useQueryClient();
 
-  const updateTaskMutation = useUpdateTask({
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tasks"] });
-      setOpen(false);
-    },
-  });
+  const onMutationSucces = () => {
+    queryClient.invalidateQueries({ queryKey: ["tasks"] });
+    setOpen(false);
+  };
 
-  const createTaskMutation = useCreateTask();
+  const updateTaskMutation = useUpdateTask({ onSuccess: onMutationSucces });
+
+  const createTaskMutation = useCreateTask({ onSuccess: onMutationSucces });
 
   const onSubmit = handleSubmit(async (data) => {
     if (task) {

@@ -35,9 +35,10 @@ export const useUpdateTask = ({ onSuccess }: { onSuccess: () => void }) => {
   });
 };
 
-export const useCreateTask = () => {
+export const useCreateTask = ({ onSuccess }: { onSuccess: () => void }) => {
   return useMutation({
     mutationFn: ({ task }: { task: Task }) =>
       TasksApiService.createTask({ task }),
+    onSuccess: onSuccess,
   });
 };
