@@ -1,5 +1,6 @@
 import { AuthApiService } from "@/api/api-service/auth/auth-api-service";
 import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
 
 export const useGoogleLogIn = () => {
   return useMutation({
@@ -9,15 +10,23 @@ export const useGoogleLogIn = () => {
 };
 
 export const useLogIn = () => {
+  const navigate = useNavigate();
   return useMutation({
     mutationFn: AuthApiService.logIn,
-    onSettled: (data) => console.log(data),
+    onSuccess: (data) => {
+      localStorage.setItem("token", data);
+      navigate({ to: "/" });
+    },
   });
 };
 
 export const useRegister = () => {
+  const navigate = useNavigate();
   return useMutation({
     mutationFn: AuthApiService.register,
-    onSuccess: (data) => console.log(data),
+    onSuccess: (data) => {
+      localStorage.setItem("token", data);
+      navigate({ to: "/" });
+    },
   });
 };
