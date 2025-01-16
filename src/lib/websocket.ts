@@ -7,10 +7,11 @@ type WebSocketAction =
   | { type: "SET_MESSAGES"; payload: ChatMessage }
   | { type: "SET_CONNECTION_STATUS"; payload: boolean }
   | { type: "SET_ERROR"; payload: string | null };
+
 export const connect = (
   ws: MutableRefObject<WebSocket | null>,
-  url: string,
-  dispatch: Dispatch<WebSocketAction>
+  dispatch: Dispatch<WebSocketAction>,
+  url: string
 ) => {
   ws.current = new WebSocket(url);
 
@@ -36,4 +37,20 @@ export const connect = (
     const message = ChatMessageSchema.parse(JSON.parse(event.data));
     dispatch({ type: "SET_MESSAGES", payload: message });
   };
+};
+
+export const sendMessage = (
+  ws: MutableRefObject<WebSocket | null>,
+  dispatch: Dispatch<WebSocketAction>,
+  message: ChatMessage
+) => {
+  if (ws.current && ws.current.readyState === WebSocket.OPEN) {
+    try {
+      ws.current.send(JSON.stringify(message));
+    } catch {
+      dispatch({ type: "SET_ERROR", payload: "Failed to send message" });
+    }
+  } else {
+    dispatch({ type: "SET_ERROR", payload: "WebSocket is not connected" });
+  }
 };
