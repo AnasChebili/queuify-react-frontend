@@ -1,6 +1,6 @@
 import { useGoogleLogIn, useLogIn } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
-import { UserRequestSchema } from "@/schemas/auth-schema";
+import { registerUserSchema, UserRequestSchema } from "@/schemas/auth-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
@@ -17,10 +17,18 @@ function RouteComponent() {
 
   const logInMutation = useLogIn();
 
-  const { handleSubmit, register } = useForm({
-    defaultValues: { email: "", password: "" },
+  const {
+    handleSubmit,
+    register,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+      confirmPassword: isLoginPage ? undefined : "",
+    },
     mode: "onChange",
-    resolver: zodResolver(UserRequestSchema),
+    resolver: zodResolver(isLoginPage ? UserRequestSchema : registerUserSchema),
   });
 
   const onSubmit = handleSubmit((data) => {
@@ -29,7 +37,7 @@ function RouteComponent() {
   });
   return (
     <div className="flex items-center justify-center w-svw h-svh">
-      <section className="flex flex-col justify-center items-center gap-12 h-[600px] w-[500px] rounded-2xl text-black bg-white">
+      <section className="flex flex-col justify-center items-center gap-12 p-4 min-h-[600px] w-[500px] rounded-2xl text-black bg-white">
         <header className="flex flex-col items-center gap-2">
           <h1 className="text-6xl font-bold">Hi There!</h1>
           <p className="text-sm ">Welcome to Queuify</p>
@@ -72,21 +80,32 @@ function RouteComponent() {
               placeholder="email"
               {...register("email")}
             />
+            {errors.email && <p>{errors.email.message}</p>}
             <input
               type="password"
               className="border-gray-400 border-2 rounded-lg p-2 h-[40px] w-[300px]"
               placeholder="password"
               {...register("password")}
             />
+            {errors.password && <p>{errors.password.message}</p>}
             {!isLoginPage && (
-              <input
-                type="password"
-                className="border-gray-400 border-2 rounded-lg p-2 h-[40px] w-[300px]"
-                placeholder="Confirm password"
-              />
+              <>
+                <input
+                  type="password"
+                  className="border-gray-400 border-2 rounded-lg p-2 h-[40px] w-[300px]"
+                  placeholder="Confirm password"
+                  {...register("confirmPassword")}
+                />
+                {errors.confirmPassword && (
+                  <p>{errors.confirmPassword.message}</p>
+                )}
+              </>
             )}
 
-            <button className=" mt-8 flex items-center justify-center w-[300px] h-[45px] rounded-full bg-black text-white">
+            <button
+              disabled={isSubmitting}
+              className=" mt-8 flex items-center justify-center w-[300px] h-[45px] rounded-full bg-black text-white"
+            >
               {isLoginPage ? "Log In" : "Sign Up"}
             </button>
           </form>
