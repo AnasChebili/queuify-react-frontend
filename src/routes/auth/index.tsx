@@ -1,7 +1,10 @@
 import { useGoogleLogIn } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
+import { UserRequestSchema } from "@/schemas/auth-schema";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 export const Route = createFileRoute("/auth/")({
   component: RouteComponent,
@@ -11,6 +14,15 @@ function RouteComponent() {
   const [isLoginPage, setIsLoginPage] = useState(true);
 
   const googleLogInMutation = useGoogleLogIn();
+
+  const { handleSubmit, register } = useForm({
+    mode: "onChange",
+    resolver: zodResolver(UserRequestSchema),
+  });
+
+  const onSubmit = handleSubmit((data) => {
+    console.log(data);
+  });
   return (
     <div className="flex items-center justify-center w-svw h-svh">
       <section className="flex flex-col justify-center items-center gap-12 h-[600px] w-[500px] rounded-2xl text-black bg-white">
@@ -49,16 +61,18 @@ function RouteComponent() {
 
           <div className="bg-gray-300 w-[400px] h-[1px]"></div>
 
-          <form action="" className="flex flex-col gap-4 text-sm">
+          <form onSubmit={onSubmit} className="flex flex-col gap-4 text-sm">
             <input
               type="email"
               className="border-gray-400 border-2 rounded-lg p-2 h-[40px] w-[300px]"
               placeholder="email"
+              {...register("email")}
             />
             <input
               type="password"
               className="border-gray-400 border-2 rounded-lg p-2 h-[40px] w-[300px]"
               placeholder="password"
+              {...register("password")}
             />
             {!isLoginPage && (
               <input
