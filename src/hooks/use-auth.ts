@@ -14,3 +14,10 @@ export const useLogIn = () => {
     onSettled: (data) => console.log(data),
   });
 };
+
+export const useRegister = () => {
+  return useMutation({
+    mutationFn: AuthApiService.register,
+    onSuccess: console.log,
+  });
+};

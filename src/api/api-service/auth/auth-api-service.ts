@@ -13,7 +13,16 @@ export class AuthApiService {
   }: {
     credentials: Zod.infer<typeof UserRequestSchema>;
   }): Promise<string> {
-    const { data } = await api.post(`${ENDPOINTS.LOGIN}`, credentials);
+    const { data } = await api.post(ENDPOINTS.LOGIN, credentials);
+    return data.data;
+  }
+
+  static async register({
+    credentials,
+  }: {
+    credentials: Zod.infer<typeof UserRequestSchema>;
+  }): Promise<string> {
+    const { data } = await api.post(ENDPOINTS.REGISTER, credentials);
     return data.data;
   }
 }
