@@ -4,6 +4,7 @@ import { TasksLayout } from "../components/tasks-layout";
 import { useState } from "react";
 import { calculateInitialLimit } from "../utils/infinite-scroll";
 import { useIntersectionObserver } from "../hooks/infinite-scroll";
+import { LogOut } from "@/components/logout";
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
@@ -36,6 +37,7 @@ function RouteComponent() {
         <TasksLayout tasksPages={tasksPages} />
         <div ref={loadMoreRef}>{hasNextPage && <LoadingIndicator />}</div>
       </section>
+      <LogOut />
     </div>
   );
 }

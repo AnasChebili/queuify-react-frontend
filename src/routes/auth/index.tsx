@@ -1,3 +1,4 @@
+import { Spinner } from "@/components/spinner";
 import { useGoogleLogIn, useLogIn, useRegister } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 import { registerUserSchema, UserRequestSchema } from "@/schemas/auth-schema";
@@ -130,8 +131,9 @@ function RouteComponent() {
             )}
             <button
               disabled={isSubmitting}
-              className=" mt-8 flex items-center justify-center w-[300px] h-[45px] rounded-full bg-black text-white"
+              className=" gap-3 disabled:opacity-50 justify-center mt-8 flex items-center w-[300px] h-[45px] rounded-full bg-black text-white"
             >
+              {isSubmitting && <Spinner size="small" />}
               {isLoginPage ? "Log In" : "Sign Up"}
             </button>
           </form>
