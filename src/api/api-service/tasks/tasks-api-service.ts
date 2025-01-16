@@ -49,4 +49,13 @@ export class TasksApiService {
     const { data } = await api.post(ENDPOINTS.TASKS, task);
     return data.data;
   }
+
+  static async deleteTask({
+    id,
+  }: {
+    id: string;
+  }): Promise<Zod.infer<typeof ResponseTaskSchema>> {
+    const { data } = await api.delete(`${ENDPOINTS.TASKS}/${id}`);
+    return data.data;
+  }
 }
