@@ -18,6 +18,6 @@ export const useLogIn = () => {
 export const useRegister = () => {
   return useMutation({
     mutationFn: AuthApiService.register,
-    onSuccess: console.log,
+    onSuccess: (data) => console.log(data),
   });
 };

@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const UserRequestSchema = z.object({
   email: z.string().email(),
-  password: z.string().min(8, "Password has to be at 8 characters long"),
+  password: z.string().min(8, "Password has to be at least 8 characters long"),
 });
 
 export const UserResponseSchema = z.object({
@@ -22,10 +22,12 @@ export const ReturnTokenSchema = z.object({
 export const registerUserSchema = z
   .object({
     email: z.string().email(),
-    password: z.string().min(8, "Password has to be at 8 characters long"),
+    password: z
+      .string()
+      .min(8, "Password has to be at least 8 characters long"),
     confirmPassword: z
       .string()
-      .min(8, "Confirm password has to be at 8 characters long"),
+      .min(8, "Confirm password has to be at least 8 characters long"),
   })
   .refine((args) => args.password == args.confirmPassword, {
     message: "Password and confirm password should be identical",

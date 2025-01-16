@@ -80,30 +80,51 @@ function RouteComponent() {
             onSubmit={onSubmit}
             className="flex flex-col items-center gap-4 text-sm"
           >
-            <input
-              type="email"
-              className="border-gray-400 border-2 rounded-lg p-2 h-[40px] w-[300px]"
-              placeholder="email"
-              {...register("email")}
-            />
-            {errors.email && <p>{errors.email.message}</p>}
-            <input
-              type="password"
-              className="border-gray-400 border-2 rounded-lg p-2 h-[40px] w-[300px]"
-              placeholder="password"
-              {...register("password")}
-            />
-            {errors.password && <p>{errors.password.message}</p>}
+            <div>
+              <input
+                type="email"
+                className={cn(
+                  "border-gray-400 border-2 rounded-lg p-2 h-[40px] w-[300px] outline-none",
+                  { "border-red-500": errors.email }
+                )}
+                placeholder="email"
+                {...register("email")}
+              />
+              {errors.email && (
+                <p className="text-xs text-red-500">{errors.email.message}</p>
+              )}
+            </div>
+            <div>
+              <input
+                type="password"
+                className={cn(
+                  "border-gray-400 border-2 rounded-lg p-2 h-[40px] w-[300px] outline-none",
+                  { "border-red-500": errors.password }
+                )}
+                placeholder="password"
+                {...register("password")}
+              />
+              {errors.password && (
+                <p className="text-xs text-red-500">
+                  {errors.password.message}
+                </p>
+              )}
+            </div>
             {!isLoginPage && (
-              <div className="flex flex-col items-center">
+              <div>
                 <input
                   type="password"
-                  className="border-gray-400 border-2 rounded-lg p-2 h-[40px] w-[300px]"
+                  className={cn(
+                    "border-gray-400 border-2 rounded-lg p-2 h-[40px] w-[300px] outline-none",
+                    { "border-red-500": errors.confirmPassword }
+                  )}
                   placeholder="Confirm password"
                   {...register("confirmPassword")}
                 />
                 {errors.confirmPassword && (
-                  <p>{errors.confirmPassword.message}</p>
+                  <p className="text-xs text-red-500">
+                    {errors.confirmPassword.message}
+                  </p>
                 )}
               </div>
             )}
