@@ -27,7 +27,7 @@ export const registerUserSchema = z
       .string()
       .min(8, "Confirm password has to be at 8 characters long"),
   })
-  .refine(
-    (args) => args.password == args.confirmPassword,
-    "Password and confirm password should be identical"
-  );
+  .refine((args) => args.password == args.confirmPassword, {
+    message: "Password and confirm password should be identical",
+    path: ["confirmPassword"],
+  });

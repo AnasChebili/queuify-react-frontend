@@ -1,4 +1,4 @@
-import { useGoogleLogIn, useLogIn } from "@/hooks/use-auth";
+import { useGoogleLogIn, useLogIn, useRegister } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 import { registerUserSchema, UserRequestSchema } from "@/schemas/auth-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,6 +17,8 @@ function RouteComponent() {
 
   const logInMutation = useLogIn();
 
+  const registerMutation = useRegister();
+
   const {
     handleSubmit,
     register,
@@ -32,8 +34,9 @@ function RouteComponent() {
   });
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
-    logInMutation.mutate({ credentials: data });
+    const credentials = { ...data, confirmPassword: undefined };
+    if (isLoginPage) logInMutation.mutate({ credentials: credentials });
+    else registerMutation.mutate({ credentials: credentials });
   });
   return (
     <div className="flex items-center justify-center w-svw h-svh">
@@ -73,7 +76,10 @@ function RouteComponent() {
 
           <div className="bg-gray-300 w-[400px] h-[1px]"></div>
 
-          <form onSubmit={onSubmit} className="flex flex-col gap-4 text-sm">
+          <form
+            onSubmit={onSubmit}
+            className="flex flex-col items-center gap-4 text-sm"
+          >
             <input
               type="email"
               className="border-gray-400 border-2 rounded-lg p-2 h-[40px] w-[300px]"
@@ -89,7 +95,7 @@ function RouteComponent() {
             />
             {errors.password && <p>{errors.password.message}</p>}
             {!isLoginPage && (
-              <>
+              <div className="flex flex-col items-center">
                 <input
                   type="password"
                   className="border-gray-400 border-2 rounded-lg p-2 h-[40px] w-[300px]"
@@ -99,9 +105,8 @@ function RouteComponent() {
                 {errors.confirmPassword && (
                   <p>{errors.confirmPassword.message}</p>
                 )}
-              </>
+              </div>
             )}
-
             <button
               disabled={isSubmitting}
               className=" mt-8 flex items-center justify-center w-[300px] h-[45px] rounded-full bg-black text-white"
