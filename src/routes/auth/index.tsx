@@ -1,3 +1,4 @@
+import { useGoogleLogIn } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
@@ -8,6 +9,8 @@ export const Route = createFileRoute("/auth/")({
 
 function RouteComponent() {
   const [isLoginPage, setIsLoginPage] = useState(true);
+
+  const googleLogInMutation = useGoogleLogIn();
   return (
     <div className="flex items-center justify-center w-svw h-svh">
       <section className="flex flex-col justify-center items-center gap-12 h-[600px] w-[500px] rounded-2xl text-black bg-white">
@@ -37,7 +40,10 @@ function RouteComponent() {
         </header>
 
         <section className="flex flex-col items-center justify-center gap-7">
-          <button className="flex items-center justify-center w-[300px] border-2 border-gray-400 h-[40px] rounded-lg">
+          <button
+            onClick={() => googleLogInMutation.mutate()}
+            className="flex items-center justify-center w-[300px] border-2 border-gray-400 h-[40px] rounded-lg"
+          >
             <img src="src/assets/google.svg" alt="" className="w-6 h-6" />
           </button>
 
