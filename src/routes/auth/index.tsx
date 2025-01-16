@@ -1,4 +1,4 @@
-import { useGoogleLogIn } from "@/hooks/use-auth";
+import { useGoogleLogIn, useLogIn } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 import { UserRequestSchema } from "@/schemas/auth-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,13 +15,17 @@ function RouteComponent() {
 
   const googleLogInMutation = useGoogleLogIn();
 
+  const logInMutation = useLogIn();
+
   const { handleSubmit, register } = useForm({
+    defaultValues: { email: "", password: "" },
     mode: "onChange",
     resolver: zodResolver(UserRequestSchema),
   });
 
   const onSubmit = handleSubmit((data) => {
     console.log(data);
+    logInMutation.mutate({ credentials: data });
   });
   return (
     <div className="flex items-center justify-center w-svw h-svh">
