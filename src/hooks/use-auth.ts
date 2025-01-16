@@ -7,3 +7,10 @@ export const useGoogleLogIn = () => {
     onSettled: (data) => console.log(data),
   });
 };
+
+export const useLogIn = () => {
+  return useMutation({
+    mutationFn: AuthApiService.logIn,
+    onSettled: (data) => console.log(data),
+  });
+};
