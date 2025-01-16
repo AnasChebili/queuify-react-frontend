@@ -5,31 +5,31 @@ type ChatMessage = Zod.infer<typeof ChatMessageSchema>;
 type WsState = {
   messages: ChatMessage[];
   isConnected: boolean;
-  error: Error | null;
+  error: string | null;
 };
 
-type Action = {
-  type: "SET_MESSAGES" | "SET_CONNECTION_STATUS" | "SET_ERROR";
-  payload: ChatMessage | boolean | Error;
-};
+type WebSocketAction =
+  | { type: "SET_MESSAGES"; payload: ChatMessage }
+  | { type: "SET_CONNECTION_STATUS"; payload: boolean }
+  | { type: "SET_ERROR"; payload: string | null };
 
 export const wsReducer = ({
   state,
   action,
 }: {
   state: WsState;
-  action: Action;
+  action: WebSocketAction;
 }): WsState => {
   switch (action.type) {
     case "SET_MESSAGES":
       return {
         ...state,
-        messages: [...state.messages, ChatMessageSchema.parse(action.payload)],
+        messages: [...state.messages, action.payload],
       };
     case "SET_CONNECTION_STATUS":
-      return { ...state, isConnected: action.payload as boolean };
+      return { ...state, isConnected: action.payload };
     case "SET_ERROR":
-      return { ...state, error: action.payload as Error };
+      return { ...state, error: action.payload };
     default:
       return state;
   }
