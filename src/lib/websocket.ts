@@ -34,6 +34,8 @@ export const connect = (
   };
 
   ws.current.onmessage = (event) => {
+    console.log(event);
+
     const message = ChatMessageSchema.parse(JSON.parse(event.data));
     dispatch({ type: "SET_MESSAGES", payload: message });
   };

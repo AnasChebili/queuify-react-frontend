@@ -18,7 +18,8 @@ const ChatBar = () => {
   const [message, setMessage] = useState<ChatMessage>();
   return (
     <form
-      onSubmit={() => {
+      onSubmit={(e) => {
+        e.preventDefault();
         if (message?.content?.trim()) {
           console.log(message);
           sendMessage(ws, dispatch, message);
