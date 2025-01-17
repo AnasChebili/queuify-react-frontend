@@ -19,7 +19,10 @@ const ChatBar = () => {
   return (
     <form
       onSubmit={() => {
-        if (message?.content?.trim()) sendMessage(ws, dispatch, message);
+        if (message?.content?.trim()) {
+          console.log(message);
+          sendMessage(ws, dispatch, message);
+        }
       }}
       className="w-full p-4 bg-white rounded-2xl"
     >
