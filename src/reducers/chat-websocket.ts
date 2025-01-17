@@ -8,7 +8,7 @@ export type WsState = {
   error: string | null;
 };
 
-type WebSocketAction =
+export type WebSocketAction =
   | { type: "SET_MESSAGES"; payload: ChatMessage }
   | { type: "SET_CONNECTION_STATUS"; payload: boolean }
   | { type: "SET_ERROR"; payload: string | null };

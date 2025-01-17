@@ -1,5 +1,5 @@
-import { useContext } from "react";
 import { ChatMessageList } from "./chat-message-list";
+import { useWebSocketContext } from "@/hooks/websocket";
 
 export const ChatContainer = () => {
   return (
@@ -11,9 +11,12 @@ export const ChatContainer = () => {
 };
 
 const ChatBar = () => {
-  const { sendMessage } = useContext(WebSocketContext);
+  const { state, sendMessage, dispatch } = useWebSocketContext()!;
   return (
-    <form action="" className="w-full p-4 bg-white rounded-2xl">
+    <form
+      onSubmit={webSocketState?.sendMessage(webSocketState.state)}
+      className="w-full p-4 bg-white rounded-2xl"
+    >
       <input
         type="text"
         className="w-full border-none outline-none"
