@@ -30,7 +30,7 @@ const ChatBar = () => {
         type="text"
         className="w-full border-none outline-none"
         placeholder="Chat"
-        value={message?.content}
+        value={message?.content ?? ""}
         onChange={(e) =>
           setMessage({
             type: "message",
