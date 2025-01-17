@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { ChatMessageList } from "./chat-message-list";
 
 export const ChatContainer = () => {
@@ -10,6 +11,7 @@ export const ChatContainer = () => {
 };
 
 const ChatBar = () => {
+  const { sendMessage } = useContext(WebSocketContext);
   return (
     <form action="" className="w-full p-4 bg-white rounded-2xl">
       <input

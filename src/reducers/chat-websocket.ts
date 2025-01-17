@@ -1,8 +1,8 @@
 import { ChatMessageSchema } from "@/schemas/chat-schema";
 
-type ChatMessage = Zod.infer<typeof ChatMessageSchema>;
+export type ChatMessage = Zod.infer<typeof ChatMessageSchema>;
 
-type WsState = {
+export type WsState = {
   messages: ChatMessage[];
   isConnected: boolean;
   error: string | null;
@@ -13,13 +13,7 @@ type WebSocketAction =
   | { type: "SET_CONNECTION_STATUS"; payload: boolean }
   | { type: "SET_ERROR"; payload: string | null };
 
-export const wsReducer = ({
-  state,
-  action,
-}: {
-  state: WsState;
-  action: WebSocketAction;
-}): WsState => {
+export const wsReducer = (state: WsState, action: WebSocketAction): WsState => {
   switch (action.type) {
     case "SET_MESSAGES":
       return {
