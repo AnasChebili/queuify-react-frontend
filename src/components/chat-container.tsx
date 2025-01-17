@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ChatMessageList } from "./chat-message-list";
-import { useWebSocketContext } from "@/hooks/websocket";
+import { useWebSocketContext } from "@/hooks/use-websocket";
 import { ChatMessage } from "@/reducers/chat-websocket";
 
 export const ChatContainer = () => {
