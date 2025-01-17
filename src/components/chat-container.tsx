@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ChatMessageList } from "./chat-message-list";
 import { useWebSocketContext } from "@/hooks/websocket";
+import { ChatMessage } from "@/reducers/chat-websocket";
 
 export const ChatContainer = () => {
   return (
@@ -12,20 +13,29 @@ export const ChatContainer = () => {
 };
 
 const ChatBar = () => {
-  const { state, sendMessage, dispatch } = useWebSocketContext()!;
+  const { ws, sendMessage, dispatch } = useWebSocketContext()!;
 
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState<ChatMessage>();
   return (
     <form
-      onSubmit={sendMessage(state, dispatch, message)}
+      onSubmit={() => {
+        if (message?.content?.trim()) sendMessage(ws, dispatch, message);
+      }}
       className="w-full p-4 bg-white rounded-2xl"
     >
       <input
         type="text"
         className="w-full border-none outline-none"
         placeholder="Chat"
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
+        value={message?.content}
+        onChange={(e) =>
+          setMessage({
+            type: "message",
+            username: "randomUser",
+            timestamp: new Date().toISOString(),
+            content: e.target.value,
+          })
+        }
       />
     </form>
   );
