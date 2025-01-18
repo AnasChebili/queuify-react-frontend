@@ -8,12 +8,22 @@ type WebSocketAction =
   | { type: "SET_CONNECTION_STATUS"; payload: boolean }
   | { type: "SET_ERROR"; payload: string | null };
 
-export const connect = (
+export const connect = async (
   ws: MutableRefObject<WebSocket | null>,
   dispatch: Dispatch<WebSocketAction>,
   url: string
 ) => {
-  ws.current = new WebSocket(url);
+  ws.current! = await new Promise((resolve, reject) => {
+    const ws = new WebSocket(url);
+
+    ws.onopen = () => {
+      resolve(ws);
+    };
+
+    ws.onerror = () => {
+      reject(new Error("WebSocket connection failed"));
+    };
+  });
 
   ws.current.onopen = () => {
     dispatch({ type: "SET_CONNECTION_STATUS", payload: true });

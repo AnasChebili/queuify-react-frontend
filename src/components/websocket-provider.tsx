@@ -20,7 +20,10 @@ export const WebSocketProvider = ({
   const ws = useRef<WebSocket | null>(null);
 
   useEffect(() => {
-    connect(ws, dispatch, url);
+    async function asyncConnect() {
+      await connect(ws, dispatch, url);
+    }
+    asyncConnect();
     const temporaryWs = ws.current;
     return () => {
       if (temporaryWs) {
