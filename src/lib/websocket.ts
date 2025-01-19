@@ -13,7 +13,7 @@ export const connect = (
   dispatch: Dispatch<WebSocketAction>,
   url: string
 ) => {
-  ws.current = new WebSocket(url);
+  ws.current! = new WebSocket(url);
 
   ws.current.onopen = () => {
     dispatch({ type: "SET_CONNECTION_STATUS", payload: true });
@@ -48,6 +48,8 @@ export const sendMessage = (
 ) => {
   if (ws.current && ws.current.readyState === WebSocket.OPEN) {
     try {
+      console.log("sending from within the send func");
+
       ws.current.send(JSON.stringify(message));
     } catch {
       dispatch({ type: "SET_ERROR", payload: "Failed to send message" });
