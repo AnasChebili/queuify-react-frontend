@@ -6,6 +6,7 @@ export const ChatMessage = ({ message }: { message: ChatMessageType }) => {
     return <OwnMessage message={message} />;
   if (message.type === "message" && message.username !== "randomUser")
     return <OtherMessage message={message} />;
+  if (message.type === "leave") return <JoinMessage message={message} />;
 };
 
 const JoinMessage = ({ message }: { message: ChatMessageType }) => {
