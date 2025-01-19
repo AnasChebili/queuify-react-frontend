@@ -4,6 +4,8 @@ export const ChatMessage = ({ message }: { message: ChatMessageType }) => {
   if (message.type === "join") return <JoinMessage message={message} />;
   if (message.type == "message" && message.username === "randomUser")
     return <OwnMessage message={message} />;
+  if (message.type === "message" && message.username !== "randomUser")
+    return <OtherMessage message={message} />;
 };
 
 const JoinMessage = ({ message }: { message: ChatMessageType }) => {
@@ -18,7 +20,15 @@ const JoinMessage = ({ message }: { message: ChatMessageType }) => {
 
 const OwnMessage = ({ message }: { message: ChatMessageType }) => {
   return (
-    <section className="p-2 bg-blue-400 rounded-xl w-fit">
+    <section className="self-end p-2 bg-blue-400 rounded-xl w-fit">
+      {message.content}
+    </section>
+  );
+};
+
+const OtherMessage = ({ message }: { message: ChatMessageType }) => {
+  return (
+    <section className="self-start p-2 bg-white rounded-xl w-fit">
       {message.content}
     </section>
   );

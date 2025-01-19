@@ -6,7 +6,7 @@ export const ChatMessageList = () => {
     state: { messages },
   } = useWebSocketContext()!;
   return (
-    <section className="flex flex-col gap-3 items-end max-h-[400px] overflow-y-scroll ">
+    <section className="flex flex-col gap-3  max-h-[400px] overflow-y-scroll ">
       {messages.map((message) => (
         <ChatMessage key={message.timestamp} message={message} />
       ))}
