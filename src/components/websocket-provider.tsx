@@ -20,15 +20,12 @@ export const WebSocketProvider = ({
   const ws = useRef<WebSocket | null>(null);
 
   useEffect(() => {
-    async function asyncConnect() {
-      await connect(ws, dispatch, url);
-    }
-    asyncConnect();
+    if (ws.current == null || ws.current.readyState === WebSocket.CLOSED)
+      connect(ws, dispatch, url);
+
     const temporaryWs = ws.current;
     return () => {
-      if (temporaryWs) {
-        temporaryWs.close();
-      }
+      if (temporaryWs?.readyState === WebSocket.OPEN) temporaryWs.close();
     };
   }, [url]);
 

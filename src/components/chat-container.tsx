@@ -20,8 +20,9 @@ const ChatBar = () => {
     <form
       onSubmit={(e) => {
         e.preventDefault();
+        console.log("Form submit event fired", new Date().getTime());
         if (message?.content?.trim()) {
-          console.log(message);
+          console.log("aaa", message);
           sendMessage(ws, dispatch, message);
         }
       }}

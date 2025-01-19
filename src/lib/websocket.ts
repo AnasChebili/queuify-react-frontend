@@ -8,22 +8,12 @@ type WebSocketAction =
   | { type: "SET_CONNECTION_STATUS"; payload: boolean }
   | { type: "SET_ERROR"; payload: string | null };
 
-export const connect = async (
+export const connect = (
   ws: MutableRefObject<WebSocket | null>,
   dispatch: Dispatch<WebSocketAction>,
   url: string
 ) => {
-  ws.current! = await new Promise((resolve, reject) => {
-    const ws = new WebSocket(url);
-
-    ws.onopen = () => {
-      resolve(ws);
-    };
-
-    ws.onerror = () => {
-      reject(new Error("WebSocket connection failed"));
-    };
-  });
+  ws.current! = new WebSocket(url);
 
   ws.current.onopen = () => {
     dispatch({ type: "SET_CONNECTION_STATUS", payload: true });
@@ -58,6 +48,8 @@ export const sendMessage = (
 ) => {
   if (ws.current && ws.current.readyState === WebSocket.OPEN) {
     try {
+      console.log("sending from within the send func");
+
       ws.current.send(JSON.stringify(message));
     } catch {
       dispatch({ type: "SET_ERROR", payload: "Failed to send message" });
