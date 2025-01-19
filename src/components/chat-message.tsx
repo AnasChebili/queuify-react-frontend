@@ -34,9 +34,10 @@ const OtherMessage = ({ message }: { message: ChatMessageType }) => {
   return (
     <section
       style={{ wordBreak: "break-word" }}
-      className="self-start p-2 bg-white rounded-xl w-fit"
+      className="flex flex-col self-start gap-2 "
     >
-      {message.content}
+      <p className="text-xs font-bold">{message.username}</p>
+      <p className="p-2 bg-white rounded-xl w-fit">{message.content}</p>
     </section>
   );
 };

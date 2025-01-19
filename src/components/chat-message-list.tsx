@@ -11,7 +11,7 @@ export const ChatMessageList = () => {
     element?.scrollIntoView();
   return (
     <SimpleBar style={{ maxHeight: 400 }}>
-      <section className="flex flex-col gap-3">
+      <section className="flex flex-col gap-3 rounded-3xl">
         {messages.map((message) => (
           <ChatMessage key={message.timestamp} message={message} />
         ))}
