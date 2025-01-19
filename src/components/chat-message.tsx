@@ -21,7 +21,10 @@ const JoinMessage = ({ message }: { message: ChatMessageType }) => {
 
 const OwnMessage = ({ message }: { message: ChatMessageType }) => {
   return (
-    <section className="self-end p-2 bg-blue-400 rounded-xl w-fit">
+    <section
+      style={{ wordBreak: "break-word" }}
+      className="self-end p-2 bg-blue-400 rounded-xl w-fit"
+    >
       {message.content}
     </section>
   );
@@ -29,7 +32,10 @@ const OwnMessage = ({ message }: { message: ChatMessageType }) => {
 
 const OtherMessage = ({ message }: { message: ChatMessageType }) => {
   return (
-    <section className="self-start p-2 bg-white rounded-xl w-fit">
+    <section
+      style={{ wordBreak: "break-word" }}
+      className="self-start p-2 bg-white rounded-xl w-fit"
+    >
       {message.content}
     </section>
   );
