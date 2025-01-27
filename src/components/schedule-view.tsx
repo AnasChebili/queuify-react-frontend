@@ -7,6 +7,14 @@ import {
 import { Select } from "./ui/select";
 import { Input } from "./ui/input";
 import { Button } from "react-day-picker";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
 
 const taskConfigs = {
   "database-backup": "Database Backup",
@@ -16,34 +24,38 @@ const taskConfigs = {
 
 export const ScheduleView = () => {
   return (
-    <section className="w-full">
-      <header>
-        <h1>Schedule New Job</h1>
-        <p>Create one-time or recurring long jobs</p>
-      </header>
-      <label>Job Type</label>
-      <Select>
-        <SelectTrigger className="w-full">
-          <SelectValue placeholder="Select a job type" />
-        </SelectTrigger>
-        <SelectContent>
-          {Object.entries(taskConfigs).map((select) => (
-            <SelectItem key={select[0]} value="">
-              {select[1]}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-      <label>Schedule For (seconds from now)</label>
-      <Input
-        className="w-full"
-        type="number"
-        placeholder="Leave empty for immediate execution"
-      />
-      <section className="flex gap-3">
-        <Button>Schedule Once</Button>
-        <Button>Schedule Recurring</Button>
-      </section>
-    </section>
+    <Card className="w-full">
+      <CardHeader>
+        <CardTitle>Schedule New Job</CardTitle>
+        <CardDescription>
+          Create one-time or recurring long jobs
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <label>Job Type</label>
+        <Select>
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Select a job type" />
+          </SelectTrigger>
+          <SelectContent>
+            {Object.entries(taskConfigs).map((select) => (
+              <SelectItem key={select[0]} value="">
+                {select[1]}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <label>Schedule For (seconds from now)</label>
+        <Input
+          className="w-full"
+          type="number"
+          placeholder="Leave empty for immediate execution"
+        />
+        <CardFooter className="flex gap-3">
+          <Button>Schedule Once</Button>
+          <Button>Schedule Recurring</Button>
+        </CardFooter>
+      </CardContent>
+    </Card>
   );
 };
