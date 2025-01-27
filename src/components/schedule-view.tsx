@@ -1,12 +1,11 @@
 import {
+  Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@radix-ui/react-select";
-import { Select } from "./ui/select";
+} from "./ui/select";
 import { Input } from "./ui/input";
-import { Button } from "react-day-picker";
 import {
   Card,
   CardContent,
@@ -15,6 +14,7 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
+import { Button } from "./ui/button";
 
 const taskConfigs = {
   "database-backup": "Database Backup",
@@ -33,13 +33,13 @@ export const ScheduleView = () => {
       </CardHeader>
       <CardContent>
         <label>Job Type</label>
-        <Select>
+        <Select autoComplete="">
           <SelectTrigger className="w-full">
             <SelectValue placeholder="Select a job type" />
           </SelectTrigger>
           <SelectContent>
             {Object.entries(taskConfigs).map((select) => (
-              <SelectItem key={select[0]} value="">
+              <SelectItem key={select[0]} value={select[0]}>
                 {select[1]}
               </SelectItem>
             ))}
