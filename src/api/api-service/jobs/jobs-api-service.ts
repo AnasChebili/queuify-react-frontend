@@ -35,7 +35,7 @@ export class JobsApiService {
     return data;
   }
 
-  static async getScheduledTasks(): Promise<ScheduledJobsReturn> {
+  static async getScheduledJobs(): Promise<ScheduledJobsReturn> {
     const { data } = await api.get(ENDPOINTS.SCHEDULED);
     return data;
   }
