@@ -7,3 +7,14 @@ export const useScheduleJob = ({ onSuccess }: { onSuccess: () => void }) => {
     onSuccess: onSuccess,
   });
 };
+
+export const useScheduleRecurringJob = ({
+  onSuccess,
+}: {
+  onSuccess: () => void;
+}) => {
+  return useMutation({
+    mutationFn: JobsApiService.scheduleRecurringJob,
+    onSuccess: onSuccess,
+  });
+};
