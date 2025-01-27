@@ -7,10 +7,10 @@ import {
   TaskTypeSchema,
 } from "@/schemas/job-schema";
 
-type TaskType = Zod.infer<typeof TaskTypeSchema>;
-type JobReturn = Zod.infer<typeof JobReturnSchema>;
-type RecurringJobReturn = Zod.infer<typeof RecurringJobReturnSchema>;
-type ScheduledJobsReturn = Zod.infer<typeof ScheduledJobsReturnSchema>;
+export type TaskType = Zod.infer<typeof TaskTypeSchema>;
+export type JobReturn = Zod.infer<typeof JobReturnSchema>;
+export type RecurringJobReturn = Zod.infer<typeof RecurringJobReturnSchema>;
+export type ScheduledJobsReturn = Zod.infer<typeof ScheduledJobsReturnSchema>;
 export class JobsApiService {
   static async scheduleJob({
     taskType,
