@@ -22,7 +22,7 @@ export const RecurringJobReturnSchema = z.object({
 export const ScheduledJobsReturnSchema = z
   .object({
     id: z.any(),
-    taskType: z.any(),
+    taskType: z.enum(["database-backup", "report-generation", "data-cleanup"]),
     status: z.any(),
     scheduledFor: z.union([z.string(), z.date()]),
   })
