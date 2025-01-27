@@ -5,3 +5,10 @@ export const TaskTypeSchema = z.enum([
   "report-generation",
   "data-cleanup",
 ]);
+
+export const JobReturnSchema = z.object({
+  message: z.string(),
+  jobId: z.any(),
+  taskType: z.enum(["database-backup", "report-generation", "data-cleanup"]),
+  scheduledFor: z.union([z.number(), z.string()]),
+});
