@@ -24,34 +24,39 @@ const taskConfigs = {
 
 export const ScheduleView = () => {
   return (
-    <Card className="w-full">
+    <Card className="w-full h-[350px]">
       <CardHeader>
         <CardTitle>Schedule New Job</CardTitle>
         <CardDescription>
           Create one-time or recurring long jobs
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <label>Job Type</label>
-        <Select autoComplete="">
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder="Select a job type" />
-          </SelectTrigger>
-          <SelectContent>
-            {Object.entries(taskConfigs).map((select) => (
-              <SelectItem key={select[0]} value={select[0]}>
-                {select[1]}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <label>Schedule For (seconds from now)</label>
-        <Input
-          className="w-full"
-          type="number"
-          placeholder="Leave empty for immediate execution"
-        />
-        <CardFooter className="flex gap-3">
+      <CardContent className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
+          <label htmlFor="type">Job Type</label>
+          <Select>
+            <SelectTrigger id="type" className="w-full">
+              <SelectValue placeholder="Select a job type" />
+            </SelectTrigger>
+            <SelectContent>
+              {Object.entries(taskConfigs).map((select) => (
+                <SelectItem key={select[0]} value={select[0]}>
+                  {select[1]}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="flex flex-col gap-2">
+          <label htmlFor="time">Schedule For (seconds from now)</label>
+          <Input
+            className="w-full"
+            type="number"
+            placeholder="Leave empty for immediate execution"
+            id="time"
+          />
+        </div>
+        <CardFooter className="flex justify-center gap-3 pt-4">
           <Button>Schedule Once</Button>
           <Button>Schedule Recurring</Button>
         </CardFooter>
