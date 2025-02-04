@@ -31,7 +31,10 @@ export const MonitorView = () => {
                 <CardDescription>Status: {job.status}</CardDescription>
               </CardHeader>
               <CardContent>
-                Scheduled For: {job.scheduledFor.toString()}
+                Scheduled For:{" "}
+                <span className="text-sm text-gray-500">
+                  {new Date(job.scheduledFor).toLocaleString()}
+                </span>
               </CardContent>
             </Card>
           ))}
