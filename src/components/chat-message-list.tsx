@@ -8,9 +8,9 @@ export const ChatMessageList = () => {
     state: { messages },
   } = useWebSocketContext()!;
   const scrolltoElement = (element: HTMLDivElement) =>
-    element?.scrollIntoView();
+    element?.scrollIntoView(false);
   return (
-    <SimpleBar style={{ maxHeight: 400 }}>
+    <SimpleBar style={{ maxHeight: 600 }}>
       <section className="flex flex-col gap-3 rounded-3xl">
         {messages.map((message) => (
           <ChatMessage key={message.timestamp} message={message} />
