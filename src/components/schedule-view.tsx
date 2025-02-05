@@ -41,13 +41,18 @@ export const ScheduleView = () => {
           Create one-time or recurring long jobs
         </CardDescription>
       </CardHeader>
-      <form action="">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          setJobType(undefined);
+        }}
+      >
         <CardContent className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <label htmlFor="type">Job Type</label>
             <Select
               required
-              value={jobType}
+              value={jobType ?? ""}
               onValueChange={(value) =>
                 setJobType(
                   value as
