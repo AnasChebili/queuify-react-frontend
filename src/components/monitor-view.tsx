@@ -33,7 +33,9 @@ export const MonitorView = () => {
               <CardContent>
                 Scheduled For:{" "}
                 <span className="text-sm text-gray-500">
-                  {new Date(job.scheduledFor).toLocaleString()}
+                  {job.scheduledFor === "immediate"
+                    ? "immediate"
+                    : new Date(job.scheduledFor).toLocaleString()}
                 </span>
               </CardContent>
             </Card>
