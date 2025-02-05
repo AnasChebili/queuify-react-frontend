@@ -6,6 +6,7 @@ import { calculateInitialLimit } from "../utils/infinite-scroll";
 import { useIntersectionObserver } from "../hooks/infinite-scroll";
 import { ChatLayout } from "@/components/chat-layout";
 import { JobsContainer } from "@/components/jobs-container";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
@@ -33,12 +34,15 @@ function RouteComponent() {
   if (error) return <div>{error?.message}</div>;
 
   return (
-    <div className="flex justify-between m-4">
+    <div className="flex justify-between m-3">
       <section className="flex flex-col gap-4">
         <JobsContainer />
         <section>
-          <TasksLayout tasksPages={tasksPages} />
-          <div ref={loadMoreRef}>{hasNextPage && <LoadingIndicator />}</div>
+          <ScrollArea className="h-[390px]">
+            <TasksLayout tasksPages={tasksPages} />
+            <div ref={loadMoreRef}>{hasNextPage && <LoadingIndicator />}</div>
+            <ScrollBar />
+          </ScrollArea>
         </section>
       </section>
       <section className="flex flex-col">
