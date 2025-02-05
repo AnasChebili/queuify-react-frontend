@@ -17,20 +17,20 @@ const taskConfigs = {
 export const MonitorView = () => {
   const { data } = useGetScheduledJobs();
   return (
-    <Card className="w-full h-[350px] flex flex-col">
+    <Card className="w-full h-[250px] flex flex-col">
       <CardHeader>
         <CardTitle>Job Monitor</CardTitle>
         <CardDescription>View and track scheduled tasks</CardDescription>
       </CardHeader>
-      <CardContent className="">
-        <ScrollArea className="h-[200px]">
+      <CardContent>
+        <ScrollArea className="h-[150px] ">
           {data?.map((job) => (
-            <Card key={job.id}>
-              <CardHeader>
+            <Card key={job.id} className="mb-2">
+              <CardHeader className="-mt-3">
                 <CardTitle>{taskConfigs[job.taskType]}</CardTitle>
                 <CardDescription>Status: {job.status}</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="-mt-5 -mb-3">
                 Scheduled For:{" "}
                 <span className="text-sm text-gray-500">
                   {job.scheduledFor === "immediate"

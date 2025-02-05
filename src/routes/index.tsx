@@ -4,7 +4,8 @@ import { TasksLayout } from "../components/tasks-layout";
 import { useState } from "react";
 import { calculateInitialLimit } from "../utils/infinite-scroll";
 import { useIntersectionObserver } from "../hooks/infinite-scroll";
-import { LogOut } from "@/components/logout";
+import { ChatLayout } from "@/components/chat-layout";
+import { JobsContainer } from "@/components/jobs-container";
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
@@ -33,11 +34,16 @@ function RouteComponent() {
 
   return (
     <div className="flex justify-between m-4">
-      <section>
-        <TasksLayout tasksPages={tasksPages} />
-        <div ref={loadMoreRef}>{hasNextPage && <LoadingIndicator />}</div>
+      <section className="flex flex-col gap-4">
+        <JobsContainer />
+        <section>
+          <TasksLayout tasksPages={tasksPages} />
+          <div ref={loadMoreRef}>{hasNextPage && <LoadingIndicator />}</div>
+        </section>
       </section>
-      <LogOut />
+      <section className="flex flex-col">
+        <ChatLayout />
+      </section>
     </div>
   );
 }
