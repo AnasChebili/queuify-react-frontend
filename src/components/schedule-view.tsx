@@ -47,7 +47,7 @@ export const ScheduleView = () => {
           setJobType(undefined);
         }}
       >
-        <CardContent className="flex flex-col gap-4">
+        <CardContent className="flex flex-col gap-3">
           <section className="flex justify-center gap-4">
             <div className="flex flex-col gap-2 basis-1/2">
               <label htmlFor="type">Job Type</label>
