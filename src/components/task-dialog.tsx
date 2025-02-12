@@ -20,9 +20,13 @@ export const TaskDialog = ({
       <DialogContent className="bg-[#BCCCDC]">
         <DialogTitle>
           <header className="flex flex-col gap-1 ">
-            <h1 className="text-lg text-black">Edit Task</h1>
+            <h1 className="text-lg text-black">
+              {task ? "Edit Task" : "Add Task"}
+            </h1>
             <DialogDescription className="text-xs text-gray-600">
-              Modify and edit the task's information
+              {task
+                ? "Modify and edit the task's information"
+                : "Add the task's information"}
             </DialogDescription>
           </header>
         </DialogTitle>
