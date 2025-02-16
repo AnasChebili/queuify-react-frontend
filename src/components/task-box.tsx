@@ -23,7 +23,7 @@ export function TaskBox({ task }: { task: Task }) {
   });
   return (
     <div
-      className="flex cursor-pointer"
+      className="flex cursor-pointer w-[750px]"
       onMouseEnter={() => setHidden(false)}
       onMouseLeave={() => setHidden(true)}
     >
@@ -68,7 +68,7 @@ export function TaskBox({ task }: { task: Task }) {
           </p>
         </section>
       </section>
-      <section className="flex flex-col">
+      <section className="flex flex-col ">
         <section className={cn({ hidden: hidden }, "pl-2")}>
           <div
             className="px-2 py-3 rounded-full hover:bg-gray-500"
