@@ -13,9 +13,11 @@ import {
 export function DatePickerDemo({
   date,
   setDate,
+  className,
 }: {
   date?: Date;
   setDate: (date: Date | undefined) => void;
+  className: string;
 }) {
   return (
     <Popover>
@@ -23,8 +25,9 @@ export function DatePickerDemo({
         <Button
           variant={"outline"}
           className={cn(
-            "w-[240px] justify-start text-left font-normal bg-transparent border-[1px] border-gray-500 rounded-lg hover:bg-transparent hover:-translate-y-1 transition",
-            !date && "text-muted-foreground"
+            "w-[240px] justify-start text-left font-normal bg-transparent border-[1px] border-gray-500 rounded-lg hover:bg-transparent  transition",
+            !date && "text-muted-foreground",
+            className
           )}
         >
           <CalendarIcon />
