@@ -39,7 +39,7 @@ export const ScheduleView = () => {
       <CardHeader>
         <CardTitle>Schedule New Job</CardTitle>
         <CardDescription>
-          Create one-time or recurring long jobs
+          Create One-time or recurring long jobs
         </CardDescription>
       </CardHeader>
       <form
