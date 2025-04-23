@@ -5,7 +5,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import { Input } from "./ui/input";
 import {
   Card,
   CardContent,
@@ -29,7 +28,7 @@ export const ScheduleView = () => {
   const [jobType, setJobType] = useState<
     "database-backup" | "report-generation" | "data-cleanup"
   >();
-  const [jobDelay, setJobDelay] = useState("");
+  const [jobDelay, setJobDelay] = useState<string | undefined>(undefined);
   const scheduleJobMutation = useScheduleJob({ onSuccess: () => {} });
   const scheduleRecurringMutation = useScheduleRecurringJob({
     onSuccess: () => {},
@@ -90,7 +89,9 @@ export const ScheduleView = () => {
                 id="time"
               /> */}
               <DatePickerDemo
-                date={undefined}
+                date={
+                  jobDelay != undefined ? new Date(Number(jobDelay)) : jobDelay
+                }
                 setDate={(date: Date | undefined) =>
                   setJobDelay(date ? String(date?.getTime()) : "0")
                 }

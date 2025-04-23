@@ -17,7 +17,7 @@ export function DatePickerDemo({
 }: {
   date?: Date;
   setDate: (date: Date | undefined) => void;
-  className: string;
+  className?: string;
 }) {
   return (
     <Popover>
