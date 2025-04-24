@@ -34,8 +34,8 @@ function RouteComponent() {
   if (error) return <div>{error?.message}</div>;
 
   return (
-    <div className="flex w-full gap-5 p-3">
-      <section className="flex flex-col w-1/2 gap-4">
+    <div className="flex flex-col gap-5 p-3 md:flex-row">
+      <section className="flex flex-col gap-4 md:w-1/2">
         <JobsContainer />
         <section>
           <ScrollArea className="h-[390px]">
@@ -45,7 +45,7 @@ function RouteComponent() {
           </ScrollArea>
         </section>
       </section>
-      <section className="flex flex-col w-1/2 ">
+      <section className="flex flex-col md:w-1/2 ">
         <ChatLayout />
       </section>
     </div>
