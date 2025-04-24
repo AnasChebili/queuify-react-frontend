@@ -34,18 +34,18 @@ function RouteComponent() {
   if (error) return <div>{error?.message}</div>;
 
   return (
-    <div className="flex justify-between m-3">
-      <section className="flex flex-col gap-4">
+    <div className="flex flex-col gap-5 p-3 md:flex-row">
+      <section className="flex flex-col gap-4 md:w-1/2">
         <JobsContainer />
         <section>
-          <ScrollArea className="h-[390px]">
+          <ScrollArea className="h-[370px]">
             <TasksLayout tasksPages={tasksPages} />
             <div ref={loadMoreRef}>{hasNextPage && <LoadingIndicator />}</div>
             <ScrollBar />
           </ScrollArea>
         </section>
       </section>
-      <section className="flex flex-col">
+      <section className="flex flex-col md:w-1/2 ">
         <ChatLayout />
       </section>
     </div>

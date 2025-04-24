@@ -34,7 +34,7 @@ export const ScheduleView = () => {
     onSuccess: () => {},
   });
   return (
-    <Card className="w-full h-[250px] ">
+    <Card className="w-full min-h-[250px] ">
       <CardHeader>
         <CardTitle>Schedule New Job</CardTitle>
         <CardDescription>
@@ -48,7 +48,7 @@ export const ScheduleView = () => {
         }}
       >
         <CardContent className="flex flex-col gap-3">
-          <section className="flex justify-center gap-4">
+          <section className="flex flex-col justify-center gap-4 sm:flex-row">
             <div className="flex flex-col gap-2 basis-1/2">
               <label htmlFor="type">Job Type</label>
               <Select
@@ -79,7 +79,7 @@ export const ScheduleView = () => {
               </Select>
             </div>
             <div className="flex flex-col gap-2 basis-1/2">
-              <label htmlFor="time">Schedule For (seconds from now)</label>
+              <label htmlFor="time">Schedule For</label>
               {/* <Input
                 value={jobDelay}
                 onChange={(e) => setJobDelay(e.target.value)}
@@ -99,7 +99,7 @@ export const ScheduleView = () => {
               />
             </div>
           </section>
-          <CardFooter className="flex justify-center gap-3 pt-4">
+          <CardFooter className="flex flex-col justify-center gap-3 pt-4 sm:flex-row">
             <Button
               disabled={!jobType}
               onClick={() =>
@@ -111,6 +111,7 @@ export const ScheduleView = () => {
                   scheduledFor: Number(jobDelay),
                 })
               }
+              className="w-[200px]"
             >
               Schedule Once
             </Button>
@@ -124,6 +125,7 @@ export const ScheduleView = () => {
                     | "data-cleanup",
                 })
               }
+              className="w-[200px]"
             >
               Schedule Recurring
             </Button>

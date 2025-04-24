@@ -7,7 +7,7 @@ export const TaskAdd = ({
   onClick: Dispatch<SetStateAction<boolean>>;
 }) => {
   return (
-    <section className=" cursor-pointer w-[700px] h-[164px] border-dashed border-white rounded-lg border-2 flex justify-center items-center">
+    <section className=" cursor-pointer h-[164px] border-dashed border-white rounded-lg border-2 flex justify-center items-center">
       <div
         onClick={() => onClick(true)}
         className="flex flex-col items-center justify-center p-4 transition hover:-translate-y-[1px] hover:bg-opacity-10 items hover:bg-gray-500 rounded-xl"
