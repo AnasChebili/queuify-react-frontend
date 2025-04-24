@@ -3,7 +3,7 @@ import { ScheduleView } from "./schedule-view";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 export const JobsContainer = () => {
   return (
-    <section className="w-[700px] flex flex-col gap-3">
+    <section className="flex flex-col gap-3">
       <Tabs defaultValue="schedule">
         <TabsList className="w-full">
           <TabsTrigger className="basis-1/2" value="schedule">

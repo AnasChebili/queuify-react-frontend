@@ -23,11 +23,11 @@ export function TaskBox({ task }: { task: Task }) {
   });
   return (
     <div
-      className="flex cursor-pointer w-[750px]"
+      className="flex cursor-pointer "
       onMouseEnter={() => setHidden(false)}
       onMouseLeave={() => setHidden(true)}
     >
-      <section className="flex w-[700px] text-black">
+      <section className="flex text-black">
         <section className="basis-1/3  bg-[#BCCCDC] p-5 rounded-s-lg">
           <header className="text-sm text-gray-500 ">Task</header>
           <h1
