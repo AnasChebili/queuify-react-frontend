@@ -38,7 +38,7 @@ function RouteComponent() {
       <section className="flex flex-col gap-4 md:w-1/2">
         <JobsContainer />
         <section>
-          <ScrollArea className="h-[390px]">
+          <ScrollArea className="h-[370px]">
             <TasksLayout tasksPages={tasksPages} />
             <div ref={loadMoreRef}>{hasNextPage && <LoadingIndicator />}</div>
             <ScrollBar />
