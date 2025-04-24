@@ -27,7 +27,7 @@ export function TaskBox({ task }: { task: Task }) {
       onMouseEnter={() => setHidden(false)}
       onMouseLeave={() => setHidden(true)}
     >
-      <section className="flex text-black">
+      <section className="flex w-full text-black">
         <section className="basis-1/3  bg-[#BCCCDC] p-5 rounded-s-lg">
           <header className="text-sm text-gray-500 ">Task</header>
           <h1
