@@ -16,7 +16,7 @@ import {
 import { Button } from "./ui/button";
 import { useScheduleJob, useScheduleRecurringJob } from "@/hooks/use-jobs";
 import { useState } from "react";
-import { DatePickerDemo } from "./date-picker";
+import { DateTimePicker } from "./date-time-picker";
 
 const taskConfigs = {
   "database-backup": "Database Backup",
@@ -28,7 +28,7 @@ export const ScheduleView = () => {
   const [jobType, setJobType] = useState<
     "database-backup" | "report-generation" | "data-cleanup"
   >();
-  const [jobDelay, setJobDelay] = useState<string | undefined>(undefined);
+  const [jobDelay, setJobDelay] = useState<number | undefined>(undefined);
   const scheduleJobMutation = useScheduleJob({ onSuccess: () => {} });
   const scheduleRecurringMutation = useScheduleRecurringJob({
     onSuccess: () => {},
@@ -51,6 +51,9 @@ export const ScheduleView = () => {
           <section className="flex flex-col justify-center gap-4 sm:flex-row">
             <div className="flex flex-col gap-2 basis-1/2">
               <label htmlFor="type">Job Type</label>
+              <p className="text-sm text-muted-foreground">
+                Automatically run long Jobs
+              </p>
               <Select
                 required
                 value={jobType ?? ""}
@@ -65,7 +68,7 @@ export const ScheduleView = () => {
               >
                 <SelectTrigger
                   id="type"
-                  className="w-full text-gray-500 transition border-gray-500 hover:text-black"
+                  className="w-full text-gray-500 transition hover:bg-accent hover:text-accent-foreground"
                 >
                   <SelectValue placeholder="Select a job type" />
                 </SelectTrigger>
@@ -80,6 +83,9 @@ export const ScheduleView = () => {
             </div>
             <div className="flex flex-col gap-2 basis-1/2">
               <label htmlFor="time">Schedule For</label>
+              <p className="text-sm text-muted-foreground">
+                Available only for one-time jobs
+              </p>
               {/* <Input
                 value={jobDelay}
                 onChange={(e) => setJobDelay(e.target.value)}
@@ -88,14 +94,13 @@ export const ScheduleView = () => {
                 placeholder="Leave empty for immediate execution"
                 id="time"
               /> */}
-              <DatePickerDemo
+              <DateTimePicker
                 date={
                   jobDelay != undefined ? new Date(Number(jobDelay)) : jobDelay
                 }
                 setDate={(date: Date | undefined) =>
-                  setJobDelay(date ? String(date?.getTime()) : "0")
+                  setJobDelay(date ? date?.getTime() : 0)
                 }
-                className="w-full"
               />
             </div>
           </section>
@@ -108,10 +113,11 @@ export const ScheduleView = () => {
                     | "database-backup"
                     | "report-generation"
                     | "data-cleanup",
-                  scheduledFor: Number(jobDelay),
+                  scheduledFor: jobDelay,
                 })
               }
               className="w-[200px]"
+              size={"lg"}
             >
               Schedule Once
             </Button>
@@ -125,7 +131,8 @@ export const ScheduleView = () => {
                     | "data-cleanup",
                 })
               }
-              className="w-[200px]"
+              className="w-[200px] "
+              size={"lg"}
             >
               Schedule Recurring
             </Button>
