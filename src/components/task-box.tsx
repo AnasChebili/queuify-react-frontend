@@ -24,8 +24,9 @@ export function TaskBox({ task }: { task: Task }) {
   return (
     <div
       className="flex cursor-pointer "
-      onMouseEnter={() => setHidden(false)}
-      onMouseLeave={() => setHidden(true)}
+      onMouseEnter={() => window.screen.width > 768 && setHidden(false)}
+      onMouseLeave={() => window.screen.width > 768 && setHidden(true)}
+      onClick={() => window.screen.width <= 768 && setHidden((prev) => !prev)}
     >
       <section className="flex w-full text-black">
         <section className="basis-1/3  bg-[#BCCCDC] p-5 rounded-s-lg">
