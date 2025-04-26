@@ -16,7 +16,7 @@ import {
 import { Button } from "./ui/button";
 import { useScheduleJob, useScheduleRecurringJob } from "@/hooks/use-jobs";
 import { useState } from "react";
-import { DatePickerDemo } from "./date-picker";
+import { DateTimePicker } from "./date-time-picker";
 
 const taskConfigs = {
   "database-backup": "Database Backup",
@@ -65,7 +65,7 @@ export const ScheduleView = () => {
               >
                 <SelectTrigger
                   id="type"
-                  className="w-full text-gray-500 transition border-gray-500 hover:text-black"
+                  className="w-full text-gray-500 transition hover:bg-accent hover:text-accent-foreground"
                 >
                   <SelectValue placeholder="Select a job type" />
                 </SelectTrigger>
@@ -88,14 +88,13 @@ export const ScheduleView = () => {
                 placeholder="Leave empty for immediate execution"
                 id="time"
               /> */}
-              <DatePickerDemo
+              <DateTimePicker
                 date={
                   jobDelay != undefined ? new Date(Number(jobDelay)) : jobDelay
                 }
                 setDate={(date: Date | undefined) =>
                   setJobDelay(date ? date?.getTime() : 0)
                 }
-                className="w-full"
               />
             </div>
           </section>
