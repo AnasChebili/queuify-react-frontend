@@ -84,7 +84,7 @@ export const ScheduleView = () => {
             <div className="flex flex-col gap-2 basis-1/2">
               <label htmlFor="time">Schedule For</label>
               <p className="text-sm text-muted-foreground">
-                Available only for one-time jobs.
+                Available only for one-time jobs
               </p>
               {/* <Input
                 value={jobDelay}
@@ -117,6 +117,7 @@ export const ScheduleView = () => {
                 })
               }
               className="w-[200px]"
+              size={"lg"}
             >
               Schedule Once
             </Button>
@@ -130,7 +131,8 @@ export const ScheduleView = () => {
                     | "data-cleanup",
                 })
               }
-              className="w-[200px]"
+              className="w-[200px] "
+              size={"lg"}
             >
               Schedule Recurring
             </Button>
