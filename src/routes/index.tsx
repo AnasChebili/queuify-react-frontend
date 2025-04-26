@@ -37,7 +37,7 @@ function RouteComponent() {
     <div className="flex flex-col gap-5 p-3 md:flex-row">
       <section className="flex flex-col gap-4 md:w-1/2">
         <JobsContainer />
-        <section>
+        <section className="hidden md:block">
           <ScrollArea className="h-[370px]">
             <TasksLayout tasksPages={tasksPages} />
             <div ref={loadMoreRef}>{hasNextPage && <LoadingIndicator />}</div>
@@ -47,6 +47,13 @@ function RouteComponent() {
       </section>
       <section className="flex flex-col md:w-1/2 ">
         <ChatLayout />
+      </section>
+      <section className="block md:hidden">
+        <ScrollArea className="h-[500px]">
+          <TasksLayout tasksPages={tasksPages} />
+          <div ref={loadMoreRef}>{hasNextPage && <LoadingIndicator />}</div>
+          <ScrollBar />
+        </ScrollArea>
       </section>
     </div>
   );

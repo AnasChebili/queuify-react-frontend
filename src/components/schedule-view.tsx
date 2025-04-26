@@ -28,7 +28,7 @@ export const ScheduleView = () => {
   const [jobType, setJobType] = useState<
     "database-backup" | "report-generation" | "data-cleanup"
   >();
-  const [jobDelay, setJobDelay] = useState<string | undefined>(undefined);
+  const [jobDelay, setJobDelay] = useState<number | undefined>(undefined);
   const scheduleJobMutation = useScheduleJob({ onSuccess: () => {} });
   const scheduleRecurringMutation = useScheduleRecurringJob({
     onSuccess: () => {},
@@ -93,7 +93,7 @@ export const ScheduleView = () => {
                   jobDelay != undefined ? new Date(Number(jobDelay)) : jobDelay
                 }
                 setDate={(date: Date | undefined) =>
-                  setJobDelay(date ? String(date?.getTime()) : "0")
+                  setJobDelay(date ? date?.getTime() : 0)
                 }
                 className="w-full"
               />
@@ -108,7 +108,7 @@ export const ScheduleView = () => {
                     | "database-backup"
                     | "report-generation"
                     | "data-cleanup",
-                  scheduledFor: Number(jobDelay),
+                  scheduledFor: jobDelay,
                 })
               }
               className="w-[200px]"
