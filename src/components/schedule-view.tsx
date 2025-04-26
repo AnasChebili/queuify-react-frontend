@@ -51,6 +51,9 @@ export const ScheduleView = () => {
           <section className="flex flex-col justify-center gap-4 sm:flex-row">
             <div className="flex flex-col gap-2 basis-1/2">
               <label htmlFor="type">Job Type</label>
+              <p className="text-sm text-muted-foreground">
+                Automatically run long Jobs
+              </p>
               <Select
                 required
                 value={jobType ?? ""}
@@ -80,6 +83,9 @@ export const ScheduleView = () => {
             </div>
             <div className="flex flex-col gap-2 basis-1/2">
               <label htmlFor="time">Schedule For</label>
+              <p className="text-sm text-muted-foreground">
+                Available only for one-time jobs.
+              </p>
               {/* <Input
                 value={jobDelay}
                 onChange={(e) => setJobDelay(e.target.value)}
