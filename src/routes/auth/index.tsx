@@ -3,12 +3,27 @@ import { useLogIn, useRegister } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 import { registerUserSchema, UserRequestSchema } from "@/schemas/auth-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createFileRoute } from "@tanstack/react-router";
+import {
+  createFileRoute,
+  ParsedLocation,
+  redirect,
+} from "@tanstack/react-router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 export const Route = createFileRoute("/auth/")({
   component: RouteComponent,
+  beforeLoad: ({
+    location,
+  }: {
+    location: ParsedLocation<{ access_token?: string }>;
+  }) => {
+    const access_token = location.search.access_token;
+    if (access_token) {
+      localStorage.setItem("token", access_token);
+      throw redirect({ to: "/" });
+    }
+  },
 });
 
 function RouteComponent() {
