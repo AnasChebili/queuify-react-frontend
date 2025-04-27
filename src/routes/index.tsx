@@ -36,7 +36,6 @@ function RouteComponent() {
 
   return (
     <div className="flex flex-col gap-5 p-3 md:flex-row">
-      <LogOut />
       <section className="flex flex-col gap-4 md:w-1/2">
         <JobsContainer />
         <section className="hidden md:block">
