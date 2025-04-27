@@ -1,20 +1,33 @@
 import { Spinner } from "@/components/spinner";
-import { useGoogleLogIn, useLogIn, useRegister } from "@/hooks/use-auth";
+import { useLogIn, useRegister } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 import { registerUserSchema, UserRequestSchema } from "@/schemas/auth-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createFileRoute } from "@tanstack/react-router";
+import {
+  createFileRoute,
+  ParsedLocation,
+  redirect,
+} from "@tanstack/react-router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 export const Route = createFileRoute("/auth/")({
   component: RouteComponent,
+  beforeLoad: ({
+    location,
+  }: {
+    location: ParsedLocation<{ access_token?: string }>;
+  }) => {
+    const access_token = location.search.access_token;
+    if (access_token) {
+      localStorage.setItem("token", access_token);
+      throw redirect({ to: "/" });
+    }
+  },
 });
 
 function RouteComponent() {
   const [isLoginPage, setIsLoginPage] = useState(true);
-
-  const googleLogInMutation = useGoogleLogIn();
 
   const logInMutation = useLogIn();
 
@@ -68,12 +81,12 @@ function RouteComponent() {
         </header>
 
         <section className="flex flex-col items-center justify-center gap-7">
-          <button
-            onClick={() => googleLogInMutation.mutate()}
+          <a
+            href="http://127.0.0.1:3000/auth/google"
             className="flex items-center justify-center w-[300px] border-2 border-gray-400 h-[40px] rounded-lg"
           >
             <img src="src/assets/google.svg" alt="" className="w-6 h-6" />
-          </button>
+          </a>
 
           <div className="bg-gray-300 w-[400px] h-[1px]"></div>
 
