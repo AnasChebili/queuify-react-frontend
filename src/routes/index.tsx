@@ -7,6 +7,7 @@ import { useIntersectionObserver } from "../hooks/infinite-scroll";
 import { ChatLayout } from "@/components/chat-layout";
 import { JobsContainer } from "@/components/jobs-container";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { LogOut } from "@/components/logout";
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
@@ -35,6 +36,7 @@ function RouteComponent() {
 
   return (
     <div className="flex flex-col gap-5 p-3 md:flex-row">
+      <LogOut />
       <section className="flex flex-col gap-4 md:w-1/2">
         <JobsContainer />
         <section className="hidden md:block">
