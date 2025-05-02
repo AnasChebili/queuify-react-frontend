@@ -82,7 +82,7 @@ function RouteComponent() {
 
         <section className="flex flex-col items-center justify-center gap-7">
           <a
-            href="http://127.0.0.1:3000/auth/google"
+            href={`${process.env.VITE_BACKEND_URL}/auth/google`}
             className="flex items-center justify-center w-[300px] border-2 border-gray-400 h-[40px] rounded-lg"
           >
             <img src="src/assets/google.svg" alt="" className="w-6 h-6" />

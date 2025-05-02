@@ -3,7 +3,9 @@ import { WebSocketProvider } from "./websocket-provider";
 
 export const ChatLayout = () => {
   return (
-    <WebSocketProvider url="ws://127.0.0.1:3000/websocket/chat">
+    <WebSocketProvider
+      url={`${process.env.VITE_BACKEND_WEBSOCKET}/websocket/chat`}
+    >
       <ChatContainer></ChatContainer>
     </WebSocketProvider>
   );
